@@ -4,10 +4,15 @@ WORKDIR /app
 
 COPY app/package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY app .
 
+RUN addgroup -S nodegroup && \
+    adduser -S nodeuser -G nodegroup
+
+USER nodeuser
+
 EXPOSE 3000
 
-CMD ["npm","start"]
+CMD ["npm", "start"]

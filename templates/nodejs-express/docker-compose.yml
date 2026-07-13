@@ -2,7 +2,6 @@ services:
 
   api:
     build: .
-
     container_name: shipstack-node-api
 
     ports:
@@ -12,3 +11,15 @@ services:
       - .env
 
     restart: always
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "http://localhost:3000"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3

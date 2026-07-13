@@ -1,37 +1,36 @@
-# shipstack-docker-templates
-This is business model
+# ShipStack Node.js Express Docker Template
 
-# ShipStack Node.js Docker Template
+A production-ready Node.js Express starter template using Docker and Docker Compose.
 
-A production-ready starter template for running a Node.js Express application using Docker and Docker Compose.
-
-This template helps developers quickly containerize a Node.js application with environment configuration and a simple production-style workflow.
-
----
+ShipStack templates help developers move applications from local development to containerized environments quickly with DevOps best practices included.
 
 ## 🚀 Features
 
 * Node.js 22 Alpine Docker image
-* Express.js application
-* Dockerfile included
-* Docker Compose support
+* Express.js API application
+* Docker Compose workflow
 * Environment variable configuration
-* Container restart policy
-* Simple API health endpoint
-* Ready for future CI/CD and cloud deployment improvements
+* Non-root Docker container user
+* Container health check
+* Docker build automation with GitHub Actions
+* Clean production Docker structure
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 nodejs-express/
 
+├── .dockerignore
+├── .env.example
+├── .gitignore
 ├── Dockerfile
 ├── docker-compose.yml
-├── .dockerignore
-├── .env
-├── .env.example
+│
+├── .github/
+│   └── workflows/
+│       └── docker-ci.yml
 │
 └── app/
     ├── package.json
@@ -41,14 +40,14 @@ nodejs-express/
 
 ---
 
-# 🛠 Prerequisites
+# 🛠 Requirements
 
-Before running this project, install:
+Install:
 
 * Docker
 * Docker Compose
 
-Check installation:
+Verify:
 
 ```bash
 docker --version
@@ -60,45 +59,43 @@ docker compose version
 
 ---
 
-# ⚙️ Configuration
+# ⚙️ Environment Configuration
 
-The application uses environment variables.
+Create your environment file:
 
-Create a `.env` file:
-
+```bash
+cp .env.example .env
 ```
+
+Example:
+
+```env
 APP_NAME=ShipStack
 APP_PORT=3000
 NODE_ENV=production
 ```
 
-For sharing the template, use:
-
-```
-.env.example
-```
-
-Never commit sensitive information such as passwords or API keys.
+Do not commit `.env` files containing secrets.
 
 ---
 
-# 🐳 Run With Docker Compose
+# 🐳 Run Application
 
-Build and start the application:
+Build and start:
 
 ```bash
 docker compose up --build
 ```
 
-The application will start on:
+Application runs on:
 
-```
+```text
 http://localhost:3000
 ```
 
 ---
 
-# 🧪 Test Application
+# 🧪 Test API
 
 Using curl:
 
@@ -106,7 +103,7 @@ Using curl:
 curl localhost:3000
 ```
 
-Expected response:
+Response:
 
 ```json
 {
@@ -117,23 +114,7 @@ Expected response:
 
 ---
 
-# 🛑 Stop Application
-
-Stop containers:
-
-```bash
-CTRL + C
-```
-
-Or:
-
-```bash
-docker compose down
-```
-
----
-
-# 🔍 Useful Docker Commands
+# 🔍 Docker Commands
 
 View running containers:
 
@@ -147,54 +128,137 @@ View logs:
 docker compose logs
 ```
 
-Rebuild after changes:
-
-```bash
-docker compose up --build
-```
-
-Remove containers:
+Stop application:
 
 ```bash
 docker compose down
 ```
 
+Rebuild:
+
+```bash
+docker compose up --build
+```
+
 ---
 
-# 🏗 Docker Workflow
+# 🔐 Security Features
 
+This template includes:
+
+## Non-root container execution
+
+The application runs using a dedicated Docker user instead of root.
+
+Verify:
+
+```bash
+docker exec -it shipstack-node-api whoami
 ```
+
+Expected:
+
+```text
+nodeuser
+```
+
+---
+
+## Health Check
+
+Docker monitors application health automatically.
+
+Check:
+
+```bash
+docker ps
+```
+
+Expected:
+
+```text
+healthy
+```
+
+---
+
+# 🔄 CI/CD Workflow
+
+Every push to the main branch triggers GitHub Actions:
+
+```text
 Developer
     |
     |
-Source Code
+Git Push
     |
+    ↓
+GitHub Actions
     |
-Dockerfile
+    ↓
+Docker Build Test
     |
-    |
-Docker Image
-    |
-    |
-Docker Container
-    |
-    |
-Node.js Express API
+    ↓
+Success / Failure
+```
+
+Workflow file:
+
+```text
+.github/workflows/docker-ci.yml
 ```
 
 ---
 
-# 📌 Future Improvements
+# 🏗 Docker Architecture
 
-Planned upgrades:
+```text
+Developer Code
+
+      |
+
+ Dockerfile
+
+      |
+
+ Docker Image
+
+      |
+
+ Docker Container
+
+      |
+
+ Node.js Express API
+
+      |
+
+ Health Monitoring
+```
+
+---
+
+# 🚀 Future Improvements
+
+Planned ShipStack upgrades:
 
 * PostgreSQL database integration
 * Nginx reverse proxy
-* Health checks
-* GitHub Actions CI/CD pipeline
-* Docker image security scanning
-* AWS deployment examples
-* Kubernetes deployment templates
+* Redis caching
+* Kubernetes deployment manifests
+* Helm charts
+* Terraform AWS deployment
+* Monitoring with Prometheus and Grafana
+
+---
+
+# 📦 Version
+
+Current version:
+
+```text
+v1.0.0
+```
 
 ---
 
@@ -206,5 +270,4 @@ MIT License
 
 ## About ShipStack
 
-ShipStack provides reusable DevOps templates that help developers move applications from code to production faster.
-
+ShipStack creates reusable DevOps templates that help developers ship applications faster.
