@@ -1,0 +1,11 @@
+{
+  "name": "shipstack-node-template",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.0.0"
+  }
+}

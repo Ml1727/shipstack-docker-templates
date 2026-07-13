@@ -1,0 +1,14 @@
+services:
+
+  api:
+    build: .
+
+    container_name: shipstack-node-api
+
+    ports:
+      - "${APP_PORT}:3000"
+
+    env_file:
+      - .env
+
+    restart: always
